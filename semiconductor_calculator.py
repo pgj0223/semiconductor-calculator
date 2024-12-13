@@ -12,21 +12,26 @@ q = 1.6e-19
 
 # 상수 값을 출력하고 수정하는 함수
 def modify_constants():
+    # 상수 값을 전역 변수로 수정하기 위해 global 키워드 사용
     global KT, ε0, Ks, q
+
+    #현재 입력된 상수 값들을 알려주기 위해 각각 출력
     print("\n현재 상수 값들:")
     print(f"KT = {KT} eV")
     print(f"ε0 = {ε0} F/m")
     print(f"Ks = {Ks}")
     print(f"q = {q} C")
 
+   #수정 할 상수 선택 후 수정 할 수 있도록 안내
     print("\n상수를 변경하려면 번호를 입력하세요:")
     print("1. KT 변경")
     print("2. ε0 변경")
     print("3. Ks 변경")
     print("4. q 변경")
     print("other. 나가기")
-
-    choice = input("원하는 기능을 입력하세요 (1/2/3/4/5): ")
+   
+    # 사용자로부터 수정할 상수 번호를 입력받음
+    choice = input("원하는 기능을 입력하세요 (1/2/3/4): ")
 
     if choice == '1':
         KT = float(input("새로운 KT 값을 입력하세요 [eV]: "))
@@ -37,8 +42,7 @@ def modify_constants():
     elif choice == '4':
         q = float(input("새로운 q 값을 입력하세요 [C]: "))
     else:
-        print("시작페이지입니다.")
-
+        return
 
 # PNP BJT(No Bias) 관련 계산을 위한 함수이다.
 def PNP_calculation():
@@ -142,8 +146,13 @@ def arithmetic_operations():
    print("2.Subtract")
    print("3.Multiply")
    print("4.Divide")
+   print("other. 나가기")
 
    choice = input("Enter choice(1/2/3/4):")
+
+  # 잘못된 입력이 들어온 경우 바로 함수 종료
+   if choice not in ['1', '2', '3', '4']:
+        return
 
    # 첫 번째 피연산자 입력
    num1 = float(input("Enter first number: "))
@@ -162,37 +171,36 @@ def arithmetic_operations():
 
    elif choice == '4':
       print(num1,"/",num2,"=", divide(num1,num2))
-   else:
-      # 선택한 기능에 따른 결과 출력
-      print("Invalid input")
 
-# 프로그램의 메인 흐름
-# 프로그램 시작 시 옵션 2개를 주고 1을 선택하면 사칙연산을 수행, 2를 선택하면 반도체 계산을 수행한다
-print("Select an option:")
-print("1. Perform Arithmetic Operations")
-print("2. Perform semiconductor Calculations")
+# 프로그램을 계속 실행하는 무한 루프를 걸고 반복문 내부에 break문을 넣음
+while True:
+    print("Select an option:")
+    print("1. Perform Arithmetic Operations")
+    print("2. Perform semiconductor Calculations")
+    print("other. 종료")
 
-option = input("Enter choice (1/2): ")
+    option = input("Enter choice (1/2): ")
 
-if option == '1':
-    # 옵션1(Arithmetic Operations)을 골랐을 때 arithmetic_operations()을 실행한다.
-    arithmetic_operations()
-elif option == '2':
-    # 옵션2(emiconductor Calculations)를 골랐을 때 한번 더 옵션 선택으로 원하는 종류의 반도체 계산 실행(확장 가능성을 위해 옵션을 추가했다.)
-    print("Select an option for semiconductor calculation:")
-    print("1. Perform PNP BJT(No Bias) Calculations")
-    print("2. Modify Constants")
-    choice = input("Enter choice (1/2): ")
+    if option == '1':
+        arithmetic_operations()
+    elif option == '2':
+        print("Select an option for semiconductor calculation:")
+        print("1. Perform PNP BJT(No Bias) Calculations")
+        print("2. Modify Constants")
+        #다른 값 입력시  break문으로 프로그램 종료
+        print("Other. 나가기")
+        choice = input("Enter choice (1/2): ")
 
-    if choice == '1':
-        # PNP_calculation(): 필요한 변수 값을 입력 받고 정의된 함수를 통해 계산 값 출력을 한다.
-        PNP_calculation()
-    elif choice == '2':
-        # 상수값 출력 및 상수를 변경, 상수 수정 후 처음으로 돌아갑니다.
-        modify_constants()
-    else:
-        #잘못된 입력일 때 출력
-        print("Invalid input")
-else:
-    #잘못된 입력일 때 출력
-    print("Invalid input")
+        if choice == '1':
+            # PNP 계산 함수 실행
+            PNP_calculation()
+        elif choice == '2':
+            # 상수 수정 함수 실행
+            modify_constants()
+        else :
+            # 다른 입력이면 다시 메뉴로 돌아감
+            continue
+      
+    else : 
+      # 프로그램 종료
+        break 
