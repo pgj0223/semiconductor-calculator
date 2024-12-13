@@ -10,6 +10,36 @@ Ks = 11.8
 # 전자전하[C] : q (전자 하나의 전하 크기)
 q = 1.6e-19
 
+# 상수 값을 출력하고 수정하는 함수
+def modify_constants():
+    global KT, ε0, Ks, q
+    print("\n현재 상수 값들:")
+    print(f"KT = {KT} eV")
+    print(f"ε0 = {ε0} F/m")
+    print(f"Ks = {Ks}")
+    print(f"q = {q} C")
+
+    print("\n상수를 변경하려면 번호를 입력하세요:")
+    print("1. KT 변경")
+    print("2. ε0 변경")
+    print("3. Ks 변경")
+    print("4. q 변경")
+    print("other. 나가기")
+
+    choice = input("원하는 기능을 입력하세요 (1/2/3/4/5): ")
+
+    if choice == '1':
+        KT = float(input("새로운 KT 값을 입력하세요 [eV]: "))
+    elif choice == '2':
+        ε0 = float(input("새로운 ε0 값을 입력하세요 [F/m]: "))
+    elif choice == '3':
+        Ks = float(input("새로운 Ks 값을 입력하세요: "))
+    elif choice == '4':
+        q = float(input("새로운 q 값을 입력하세요 [C]: "))
+    else:
+        print("시작페이지입니다.")
+
+
 # PNP BJT(No Bias) 관련 계산을 위한 함수이다.
 def PNP_calculation():
     # 사용자로부터 입력 받는 변수들(PNP BJT(No Bias) 관련 계산에 필요)이다.
@@ -151,12 +181,15 @@ elif option == '2':
     # 옵션2(emiconductor Calculations)를 골랐을 때 한번 더 옵션 선택으로 원하는 종류의 반도체 계산 실행(확장 가능성을 위해 옵션을 추가했다.)
     print("Select an option for semiconductor calculation:")
     print("1. Perform PNP BJT(No Bias) Calculations")
-
-    choice = input("Enter choice (1): ")
+    print("2. Modify Constants")
+    choice = input("Enter choice (1/2): ")
 
     if choice == '1':
-        #PNP_calculation(): 필요한 변수 값을 입력 받고 정의된 함수를 통해 계산 값 출력을 한다.
+        # PNP_calculation(): 필요한 변수 값을 입력 받고 정의된 함수를 통해 계산 값 출력을 한다.
         PNP_calculation()
+    elif choice == '2':
+        # 상수값 출력 및 상수를 변경, 상수 수정 후 처음으로 돌아갑니다.
+        modify_constants()
     else:
         #잘못된 입력일 때 출력
         print("Invalid input")
